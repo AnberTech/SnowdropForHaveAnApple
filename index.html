@@ -153,9 +153,7 @@
       filter: blur(0.3px) drop-shadow(0 2px 4px rgba(0,0,0,0.05));
     }
 
-    .mid {
-      opacity: 0.52;
-    }
+    .mid { opacity: 0.52; }
 
     .front {
       opacity: 0.72;
@@ -184,6 +182,40 @@
     .sway-b { animation: swayB 8.5s ease-in-out infinite; }
     .sway-c { animation: swayC 6.5s ease-in-out infinite; }
 
+    .lead-paragraph {
+      margin: 0 0 10px 0;
+      font-size: clamp(10px, 2.5vw, 12px);
+      line-height: 1.55;
+      text-align: justify;
+    }
+
+    .dropcap {
+      float: left;
+      font-family: 'Playfair Display', 'Times New Roman', serif;
+      font-size: clamp(32px, 7vw, 42px);
+      line-height: 0.78;
+      font-weight: 900;
+      color: #171717;
+      margin: 2px 6px -1px 0;
+    }
+
+    .lead-copy {
+      display: inline;
+      letter-spacing: 0.01em;
+    }
+
+    .article-line {
+      margin: 0 0 8px 0;
+      text-indent: 1em;
+      font-size: clamp(9px, 2.2vw, 11px);
+      line-height: 1.65;
+      text-align: justify;
+    }
+
+    .article-line:last-child {
+      margin-bottom: 0;
+    }
+
     .surface-shadow {
       position: absolute;
       bottom: -12px;
@@ -204,14 +236,11 @@
 
 <body class="h-full">
   <div class="page-bg" id="app">
-    <!-- Snowflakes -->
     <div id="snow-container"></div>
 
-    <!-- Kardelen bahçesi -->
     <div class="snowdrop-garden" aria-hidden="true">
       <div class="ground-haze"></div>
 
-      <!-- arka katman -->
       <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:-2%;  width:76px;">
       <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:5%;   width:88px;">
       <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:12%;  width:72px;">
@@ -225,7 +254,6 @@
       <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:81%;  width:78px;">
       <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:90%;  width:88px;">
 
-      <!-- orta katman -->
       <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:1%;   width:102px;">
       <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:9%;   width:92px;">
       <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:17%;  width:110px;">
@@ -238,7 +266,6 @@
       <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:79%;  width:96px;">
       <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:88%;  width:108px;">
 
-      <!-- ön katman -->
       <img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:-1%; width:122px;">
       <img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:8%;  width:136px;">
       <img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:18%; width:118px;">
@@ -250,20 +277,19 @@
       <img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:86%; width:126px;">
     </div>
 
-    <!-- Main content -->
     <div class="w-full max-w-md relative">
       <div class="newspaper fade-up rounded-sm p-5 sm:p-7 relative" id="newspaper">
         <div class="text-center mb-1">
           <p class="masthead-font text-[9px] tracking-[0.3em] uppercase" style="color:#666">
-            Türkiye Çevre Gazetesi
+            ENVIRONMENTAL NEWSPAPER FOR YOU
           </p>
         </div>
 
         <div class="fold-line"></div>
 
         <div class="flex justify-between items-center text-[7px] px-1 mb-2" style="color:#888; font-family:'Lora',serif;">
-          <span>Ocak 2026 • Sayı 4.217</span>
-          <span>Fiyatı: 25 TL</span>
+          <span>Ocak 2026 • Sayı: İlk ve son :(</span>
+          <span>Fiyatı: ∞</span>
         </div>
 
         <div style="height:2px;background:#1a1a1a;margin-bottom:1px"></div>
@@ -276,29 +302,35 @@
         <div class="divider-ornate"><span>❧</span></div>
 
         <p class="body-font text-center text-[10px] italic mb-3" style="color:#555;">
-          Koruma altındaki türlere yönelik cezalar güncellendi
+          Koruma altındaki türlere yönelik cezalar göz alıcı :D
         </p>
 
         <div style="height:0.5px;background:rgba(0,0,0,0.15);margin-bottom:12px"></div>
 
         <div id="article-body" class="body-font leading-[1.65]" style="color:#2a2a2a;">
-          <p style="margin:0 0 8px 0; font-size: clamp(10px, 2.5vw, 12px);">
-            <span class="headline-font" style="font-size: clamp(18px, 5vw, 24px); font-weight:700;float:left;line-height:0.8;margin:3px 5px 0 0;color:#1a1a1a">K</span>
-            <strong>Kardelen Koparmanın Cezası Hakkında Önemli Detaylar:</strong>
+          <p class="lead-paragraph">
+            <span class="dropcap">K</span>
+            <span class="lead-copy"><strong>ardelen Koparmanın Cezası Hakkında Önemli Detaylar:</strong></span>
           </p>
-          <p style="margin:0 0 8px 0; text-indent: 1em; font-size: clamp(9px, 2.2vw, 11px);">
+
+          <p class="article-line">
             <strong>Yasal Dayanak:</strong> 2872 sayılı Çevre Kanunu uyarınca, koruma altındaki endemik bitki türlerini (kardelen) doğadan koparmak, soğanını sökmek veya zarar vermek yasaktır.
           </p>
-          <p style="margin:0; text-indent: 1em; font-size: clamp(9px, 2.2vw, 11px);">
+
+          <p class="article-line">
             <strong>Ceza Miktarı (2026):</strong> Bu yıl için ceza tutarı <strong style="font-size: clamp(13px, 3vw, 16px); font-weight:900;">699.245 TL</strong>'ye yükselmiştir.
+          </p>
+
+          <p class="article-line">
+            <strong>By the way ;</strong> ödenebilir ödenmesine de . It could be another life . I am sure, I’m 100% sure it was worth it.
           </p>
         </div>
 
         <div style="height:0.5px;background:rgba(0,0,0,0.12);margin:14px 0 8px"></div>
 
         <div class="flex justify-between text-[7px]" style="color:#999;font-family:'Lora',serif">
-          <span>Doğayı Koruyalım</span>
-          <span>sayfa 1</span>
+          <span>Doğayı koruyalım :)</span>
+          <span>Sayfa 1</span>
         </div>
 
         <div class="surface-shadow"></div>
@@ -321,7 +353,7 @@
 
     const defaultConfig = {
       headline_text: "KARDELENE DOKUNMA",
-      article_text: "Kardelen Koparmanın Cezası Hakkında Önemli Detaylar:\nYasal Dayanak: 2872 sayılı Çevre Kanunu uyarınca, koruma altındaki endemik bitki türlerini (kardelen) doğadan koparmak, soğanını sökmek veya zarar vermek yasaktır.\nCeza Miktarı (2026): Bu yıl için ceza tutarı 699.245 TL'ye yükselmiştir.",
+      article_text: "Kardelen Koparmanın Cezası Hakkında Önemli Detaylar:\nYasal Dayanak: 2872 sayılı Çevre Kanunu uyarınca, koruma altındaki endemik bitki türlerini (kardelen) doğadan koparmak, soğanını sökmek veya zarar vermek yasaktır.\nCeza Miktarı (2026): Bu yıl için ceza tutarı 699.245 TL'ye yükselmiştir.\nBy the way ; ödenebilir ödenmesine de . It could be another life . I am sure, I’m 100% sure it was worth it.",
       paper_color: "#f5f0e8",
       text_color: "#1a1a1a",
       font_family: "Playfair Display",
