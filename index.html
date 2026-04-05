@@ -36,7 +36,7 @@
         0 20px 40px rgba(0,0,0,0.1),
         inset 0 0 80px rgba(0,0,0,0.02);
       border: 1px solid rgba(0,0,0,0.06);
-      z-index: 2;
+      z-index: 5;
     }
 
     .newspaper::before {
@@ -87,10 +87,6 @@
       color: #444;
     }
 
-    .column-rule {
-      column-rule: 1px solid rgba(0,0,0,0.1);
-    }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px) rotate(-1.2deg); }
       to { opacity: 1; transform: translateY(0) rotate(-1.2deg); }
@@ -120,46 +116,73 @@
       box-shadow: 0 0 3px rgba(200,210,220,0.4);
     }
 
-    .kardelen-svg {
+    .snowdrop-garden {
       position: fixed;
-      opacity: 0.24;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 230px;
       pointer-events: none;
-      z-index: 0;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.10));
+      z-index: 1;
+      overflow: hidden;
     }
 
-    .kardelen-svg .stem {
-      stroke: #4b6b4b;
-      stroke-width: 1.8;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .ground-haze {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 110px;
+      background:
+        linear-gradient(to top, rgba(214, 223, 214, 0.45), rgba(214, 223, 214, 0.00)),
+        radial-gradient(ellipse at center bottom, rgba(170, 184, 170, 0.20), transparent 68%);
+      filter: blur(2px);
     }
 
-    .kardelen-svg .leaf {
-      fill: #d7e4c4;
-      stroke: #92aa72;
-      stroke-width: 1;
+    .snowdrop {
+      position: absolute;
+      bottom: -4px;
+      transform-origin: bottom center;
+      user-select: none;
+      -webkit-user-drag: none;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));
     }
 
-    .kardelen-svg .petal {
-      fill: #fbfdf9;
-      stroke: #799879;
-      stroke-width: 1.3;
+    .back {
+      opacity: 0.32;
+      filter: blur(0.3px) drop-shadow(0 2px 4px rgba(0,0,0,0.05));
     }
 
-    .kardelen-svg .bud {
-      fill: #cad991;
-      stroke: #a4b56d;
-      stroke-width: 0.9;
+    .mid {
+      opacity: 0.52;
     }
 
-    .kardelen-svg .inner-detail {
-      stroke: #b7c88f;
-      stroke-width: 0.8;
-      fill: none;
-      opacity: 0.9;
+    .front {
+      opacity: 0.72;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.10));
     }
+
+    @keyframes swayA {
+      0% { transform: rotate(-2deg) translateY(0); }
+      50% { transform: rotate(2deg) translateY(-1px); }
+      100% { transform: rotate(-2deg) translateY(0); }
+    }
+
+    @keyframes swayB {
+      0% { transform: rotate(1.5deg) translateY(0); }
+      50% { transform: rotate(-2deg) translateY(-2px); }
+      100% { transform: rotate(1.5deg) translateY(0); }
+    }
+
+    @keyframes swayC {
+      0% { transform: rotate(-1deg) translateY(0); }
+      50% { transform: rotate(1deg) translateY(-1px); }
+      100% { transform: rotate(-1deg) translateY(0); }
+    }
+
+    .sway-a { animation: swayA 7s ease-in-out infinite; }
+    .sway-b { animation: swayB 8.5s ease-in-out infinite; }
+    .sway-c { animation: swayC 6.5s ease-in-out infinite; }
 
     .surface-shadow {
       position: absolute;
@@ -171,9 +194,7 @@
       filter: blur(4px);
       z-index: -1;
     }
-  </style>
 
-  <style>
     body { box-sizing: border-box; }
   </style>
 
@@ -186,88 +207,96 @@
     <!-- Snowflakes -->
     <div id="snow-container"></div>
 
-    <!-- Kardelen flowers -->
-    <svg class="kardelen-svg" style="bottom:4%; left:2%; width:140px;" viewBox="0 0 90 140" aria-hidden="true">
-      <g>
-        <path class="stem" d="M47 136 Q49 108 46 80 Q44 59 48 38" />
-        <path class="stem" d="M45 83 Q34 72 26 58" />
-        <path class="leaf" d="M27 58 Q18 51 15 42 Q24 43 31 50 Q35 54 27 58 Z" />
-        <path class="petal" d="M48 38 Q38 30 36 19 Q35 12 40 14 Q47 17 50 28 Q52 35 48 38 Z" />
-        <path class="petal" d="M48 39 Q47 24 52 14 Q55 10 58 15 Q61 24 56 35 Q53 39 48 39 Z" />
-        <path class="petal" d="M48 39 Q54 32 61 28 Q67 25 66 32 Q63 41 55 44 Q50 45 48 39 Z" />
-        <ellipse class="bud" cx="49" cy="23" rx="3.4" ry="4.4" />
-        <path class="inner-detail" d="M47 28 Q49 31 52 28" />
-      </g>
-    </svg>
+    <!-- Kardelen bahçesi -->
+    <div class="snowdrop-garden" aria-hidden="true">
+      <div class="ground-haze"></div>
 
-    <svg class="kardelen-svg" style="top:6%; right:3%; width:125px; transform:scaleX(-1);" viewBox="0 0 90 140" aria-hidden="true">
-      <g>
-        <path class="stem" d="M46 136 Q44 109 48 82 Q51 60 46 36" />
-        <path class="stem" d="M47 84 Q58 74 65 61" />
-        <path class="leaf" d="M65 61 Q73 53 76 44 Q68 45 61 52 Q57 56 65 61 Z" />
-        <path class="petal" d="M46 36 Q37 28 35 18 Q34 11 39 13 Q46 16 49 26 Q51 33 46 36 Z" />
-        <path class="petal" d="M46 37 Q46 23 51 13 Q54 9 57 14 Q60 22 55 33 Q52 37 46 37 Z" />
-        <path class="petal" d="M46 37 Q52 30 59 26 Q65 23 64 30 Q61 39 53 42 Q48 43 46 37 Z" />
-        <ellipse class="bud" cx="47" cy="22" rx="3.4" ry="4.4" />
-        <path class="inner-detail" d="M45 27 Q47 30 50 27" />
-      </g>
-    </svg>
+      <!-- arka katman -->
+      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:-2%;  width:76px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:5%;   width:88px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:12%;  width:72px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:19%;  width:84px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:28%;  width:78px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:36%;  width:86px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:45%;  width:74px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:54%;  width:82px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:63%;  width:76px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:72%;  width:84px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:81%;  width:78px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:90%;  width:88px;">
+
+      <!-- orta katman -->
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:1%;   width:102px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:9%;   width:92px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:17%;  width:110px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:25%;  width:96px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:34%;  width:108px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-a" style="left:43%;  width:95px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:52%;  width:112px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:61%;  width:94px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:70%;  width:106px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:79%;  width:96px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:88%;  width:108px;">
+
+      <!-- ön katman -->
+      <img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:-1%; width:122px;">
+      <img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:8%;  width:136px;">
+      <img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:18%; width:118px;">
+      <img src="snowdropnew2.svg" class="snowdrop front sway-c" style="left:29%; width:142px;">
+      <img src="snowdropnew1.svg" class="snowdrop front sway-a" style="left:40%; width:124px;">
+      <img src="snowdropnew2.svg" class="snowdrop front sway-b" style="left:51%; width:138px;">
+      <img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:63%; width:120px;">
+      <img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:74%; width:140px;">
+      <img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:86%; width:126px;">
+    </div>
 
     <!-- Main content -->
     <div class="w-full max-w-md relative">
       <div class="newspaper fade-up rounded-sm p-5 sm:p-7 relative" id="newspaper">
-        <!-- Masthead -->
         <div class="text-center mb-1">
-          <p class="masthead-font text-[9px] tracking-[0.3em] uppercase" style="color:#666;">
+          <p class="masthead-font text-[9px] tracking-[0.3em] uppercase" style="color:#666">
             Türkiye Çevre Gazetesi
           </p>
         </div>
 
         <div class="fold-line"></div>
 
-        <!-- Date & Edition -->
         <div class="flex justify-between items-center text-[7px] px-1 mb-2" style="color:#888; font-family:'Lora',serif;">
           <span>Ocak 2026 • Sayı 4.217</span>
           <span>Fiyatı: 25 TL</span>
         </div>
 
-        <div style="height:2px; background:#1a1a1a; margin-bottom:1px;"></div>
-        <div style="height:0.5px; background:#1a1a1a; margin-bottom:10px;"></div>
+        <div style="height:2px;background:#1a1a1a;margin-bottom:1px"></div>
+        <div style="height:0.5px;background:#1a1a1a;margin-bottom:10px"></div>
 
-        <!-- Headline -->
-        <h1 id="headline" class="headline-font text-center leading-[1.1] tracking-tight mb-2" style="font-size:28px; font-weight:900; color:#1a1a1a;">
+        <h1 id="headline" class="headline-font text-center leading-[1.1] tracking-tight mb-2" style="font-size:28px;font-weight:900;color:#1a1a1a;">
           KARDELENE DOKUNMA
         </h1>
 
         <div class="divider-ornate"><span>❧</span></div>
 
-        <!-- Subhead -->
         <p class="body-font text-center text-[10px] italic mb-3" style="color:#555;">
           Koruma altındaki türlere yönelik cezalar güncellendi
         </p>
 
-        <div style="height:0.5px; background:rgba(0,0,0,0.15); margin-bottom:12px;"></div>
+        <div style="height:0.5px;background:rgba(0,0,0,0.15);margin-bottom:12px"></div>
 
-        <!-- Article body -->
         <div id="article-body" class="body-font leading-[1.65]" style="color:#2a2a2a;">
           <p style="margin:0 0 8px 0; font-size: clamp(10px, 2.5vw, 12px);">
-            <span class="headline-font" style="font-size: clamp(18px, 5vw, 24px); font-weight:700; float:left; line-height:0.8; margin:3px 5px 0 0; color:#1a1a1a;">K</span>
+            <span class="headline-font" style="font-size: clamp(18px, 5vw, 24px); font-weight:700;float:left;line-height:0.8;margin:3px 5px 0 0;color:#1a1a1a">K</span>
             <strong>Kardelen Koparmanın Cezası Hakkında Önemli Detaylar:</strong>
           </p>
-
           <p style="margin:0 0 8px 0; text-indent: 1em; font-size: clamp(9px, 2.2vw, 11px);">
             <strong>Yasal Dayanak:</strong> 2872 sayılı Çevre Kanunu uyarınca, koruma altındaki endemik bitki türlerini (kardelen) doğadan koparmak, soğanını sökmek veya zarar vermek yasaktır.
           </p>
-
           <p style="margin:0; text-indent: 1em; font-size: clamp(9px, 2.2vw, 11px);">
             <strong>Ceza Miktarı (2026):</strong> Bu yıl için ceza tutarı <strong style="font-size: clamp(13px, 3vw, 16px); font-weight:900;">699.245 TL</strong>'ye yükselmiştir.
           </p>
         </div>
 
-        <div style="height:0.5px; background:rgba(0,0,0,0.12); margin:14px 0 8px;"></div>
+        <div style="height:0.5px;background:rgba(0,0,0,0.12);margin:14px 0 8px"></div>
 
-        <!-- Footer -->
-        <div class="flex justify-between text-[7px]" style="color:#999; font-family:'Lora',serif;">
+        <div class="flex justify-between text-[7px]" style="color:#999;font-family:'Lora',serif">
           <span>Doğayı Koruyalım</span>
           <span>sayfa 1</span>
         </div>
@@ -278,7 +307,6 @@
   </div>
 
   <script>
-    // Snow
     const snowContainer = document.getElementById('snow-container');
     for (let i = 0; i < 12; i++) {
       const s = document.createElement('div');
@@ -291,7 +319,6 @@
       snowContainer.appendChild(s);
     }
 
-    // Element SDK
     const defaultConfig = {
       headline_text: "KARDELENE DOKUNMA",
       article_text: "Kardelen Koparmanın Cezası Hakkında Önemli Detaylar:\nYasal Dayanak: 2872 sayılı Çevre Kanunu uyarınca, koruma altındaki endemik bitki türlerini (kardelen) doğadan koparmak, soğanını sökmek veya zarar vermek yasaktır.\nCeza Miktarı (2026): Bu yıl için ceza tutarı 699.245 TL'ye yükselmiştir.",
@@ -357,39 +384,6 @@
         ])
       });
     }
-  </script>
-
-  <script>
-    (function() {
-      function c() {
-        var b = a.contentDocument || a.contentWindow.document;
-        if (b) {
-          var d = b.createElement('script');
-          d.innerHTML = "window.__CF$cv$params={r:'9e76a16a53aea5cc',t:'MTc3NTM3MTk1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
-          b.getElementsByTagName('head')[0].appendChild(d);
-        }
-      }
-      if (document.body) {
-        var a = document.createElement('iframe');
-        a.height = 1;
-        a.width = 1;
-        a.style.position = 'absolute';
-        a.style.top = 0;
-        a.style.left = 0;
-        a.style.border = 'none';
-        a.style.visibility = 'hidden';
-        document.body.appendChild(a);
-        if ('loading' !== document.readyState) c();
-        else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c);
-        else {
-          var e = document.onreadystatechange || function() {};
-          document.onreadystatechange = function(b) {
-            e(b);
-            'loading' !== document.readyState && (document.onreadystatechange = e, c());
-          };
-        }
-      }
-    })();
   </script>
 </body>
 </html>
