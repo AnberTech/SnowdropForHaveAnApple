@@ -124,6 +124,54 @@
     .sway-a { animation: swayA 7s ease-in-out infinite; }
     .sway-b { animation: swayB 8.5s ease-in-out infinite; }
     .sway-c { animation: swayC 6.5s ease-in-out infinite; }
+
+    .music-toggle {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      width: 88px;
+      height: 88px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow:
+        0 8px 24px rgba(0,0,0,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .music-toggle:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow:
+        0 12px 28px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.4);
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .music-toggle:active {
+      transform: translate(-50%, -50%) scale(0.98);
+    }
+
+    .music-toggle-icon {
+      font-size: 32px;
+      line-height: 1;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      margin-left: 4px;
+    }
+
+    .music-toggle.playing .music-toggle-icon {
+      margin-left: 0;
+      font-size: 28px;
+    }
   </style>
 </head>
 
@@ -131,36 +179,45 @@
   <div class="page-bg" id="app">
     <div id="snow-container"></div>
 
+    <button id="musicToggle" class="music-toggle" aria-label="Müziği oynat veya durdur">
+      <span id="musicIcon" class="music-toggle-icon">▶</span>
+    </button>
+
+    <audio id="bgMusic" loop preload="auto">
+      <source src="yalnizlik.mp3" type="audio/mpeg" />
+      Tarayıcın audio etiketini desteklemiyor.
+    </audio>
+
     <div class="snowdrop-garden" aria-hidden="true">
       <div class="ground-haze"></div>
 
-      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:-2%;  width:76px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:5%;   width:88px;">
-      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:12%;  width:72px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:19%;  width:84px;">
-      <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:28%;  width:78px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:36%;  width:86px;">
-      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:45%;  width:74px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:54%;  width:82px;">
-      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:63%;  width:76px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:72%;  width:84px;">
-      <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:81%;  width:78px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:90%;  width:88px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:-2%; width:76px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:5%; width:88px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:12%; width:72px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:19%; width:84px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:28%; width:78px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:36%; width:86px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:45%; width:74px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:54%; width:82px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:63%; width:76px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:72%; width:84px;">
+      <img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:81%; width:78px;">
+      <img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:90%; width:88px;">
 
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:1%;   width:102px;">
-      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:9%;   width:92px;">
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:17%;  width:110px;">
-      <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:25%;  width:96px;">
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:34%;  width:108px;">
-      <img src="snowdropnew1.svg" class="snowdrop mid sway-a" style="left:43%;  width:95px;">
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:52%;  width:112px;">
-      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:61%;  width:94px;">
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:70%;  width:106px;">
-      <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:79%;  width:96px;">
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:88%;  width:108px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:1%; width:102px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:9%; width:92px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:17%; width:110px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:25%; width:96px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:34%; width:108px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-a" style="left:43%; width:95px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:52%; width:112px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:61%; width:94px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:70%; width:106px;">
+      <img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:79%; width:96px;">
+      <img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:88%; width:108px;">
 
       <img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:-1%; width:122px;">
-      <img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:8%;  width:136px;">
+      <img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:8%; width:136px;">
       <img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:18%; width:118px;">
       <img src="snowdropnew2.svg" class="snowdrop front sway-c" style="left:29%; width:142px;">
       <img src="snowdropnew1.svg" class="snowdrop front sway-a" style="left:40%; width:124px;">
@@ -185,6 +242,38 @@
       s.style.opacity = 0.15 + Math.random() * 0.2;
       snowContainer.appendChild(s);
     }
+
+    const musicToggle = document.getElementById("musicToggle");
+    const bgMusic = document.getElementById("bgMusic");
+    const musicIcon = document.getElementById("musicIcon");
+
+    function updateMusicButton() {
+      if (bgMusic.paused) {
+        musicToggle.classList.remove("playing");
+        musicIcon.textContent = "▶";
+      } else {
+        musicToggle.classList.add("playing");
+        musicIcon.textContent = "❚❚";
+      }
+    }
+
+    musicToggle.addEventListener("click", async () => {
+      try {
+        if (bgMusic.paused) {
+          await bgMusic.play();
+        } else {
+          bgMusic.pause();
+        }
+        updateMusicButton();
+      } catch (error) {
+        console.error("Müzik oynatılamadı:", error);
+      }
+    });
+
+    bgMusic.addEventListener("play", updateMusicButton);
+    bgMusic.addEventListener("pause", updateMusicButton);
+
+    updateMusicButton();
   </script>
 </body>
 </html>
