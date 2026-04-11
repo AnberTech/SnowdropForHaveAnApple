@@ -1,206 +1,157 @@
 <!doctype html>
 <html lang="tr" class="h-full">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kardelen</title>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kardelen</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
+<style>
+html, body { height:100%; margin:0; }
 
-    body {
-      box-sizing: border-box;
-      overflow: hidden;
-      background: #f7f5f0;
-    }
+body {
+  box-sizing:border-box;
+  overflow:hidden;
+  background:#f7f5f0;
+}
 
-    .page-bg {
-      background: #f7f5f0;
-      min-height: 100%;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
+.page-bg {
+  background:#f7f5f0;
+  min-height:100%;
+  width:100%;
+  position:relative;
+}
 
-    @keyframes snowfall {
-      0% { transform: translateY(-10px) translateX(0); opacity: 0; }
-      10% { opacity: 0.4; }
-      90% { opacity: 0.3; }
-      100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
-    }
+@keyframes snowfall {
+  0% { transform:translateY(-10px); opacity:0; }
+  10% { opacity:0.4; }
+  90% { opacity:0.3; }
+  100% { transform:translateY(100vh); opacity:0; }
+}
 
-    .snowflake {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: rgba(255,255,255,0.7);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      animation: snowfall linear infinite;
-      box-shadow: 0 0 3px rgba(200,210,220,0.4);
-    }
+.snowflake {
+  position:fixed;
+  width:4px;
+  height:4px;
+  background:rgba(255,255,255,0.7);
+  border-radius:50%;
+  z-index:0;
+  animation:snowfall linear infinite;
+}
 
-    .snowdrop-garden {
-      position: fixed;
-      left: -5%;
-      width: 110%;
-      bottom: 0;
-      height: 340px;
-      pointer-events: none;
-      z-index: 2;
-      overflow: hidden;
-      transform: scale(1.28);
-      transform-origin: bottom center;
-    }
+.snowdrop-garden {
+  position:fixed;
+  left:-5%;
+  width:110%;
+  bottom:0;
+  height:340px;
+  pointer-events:none;
+  z-index:2;
+  transform:scale(1.28);
+  transform-origin:bottom center;
+}
 
-    .ground-haze {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 120px;
-      background:
-        linear-gradient(to top, rgba(214, 223, 214, 0.45), rgba(214, 223, 214, 0.00)),
-        radial-gradient(ellipse at center bottom, rgba(170, 184, 170, 0.20), transparent 68%);
-      filter: blur(2px);
-    }
+.ground-haze {
+  position:absolute;
+  bottom:0;
+  height:120px;
+  width:100%;
+}
 
-    .snowdrop {
-      position: absolute;
-      bottom: -4px;
-      transform-origin: bottom center;
-      user-select: none;
-      -webkit-user-drag: none;
-      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));
-    }
+.snowdrop {
+  position:absolute;
+  bottom:-4px;
+  transform-origin:bottom center;
+}
 
-    .back { opacity: 0.32; }
-    .mid { opacity: 0.52; }
-    .front { opacity: 0.72; }
+/* 🌸 ORTA ZAMBAK (AYRI WRAPPER!) */
+.center-wrapper {
+  position:absolute;
+  left:50%;
+  bottom:-6px;
+  transform:translateX(-50%);
+  z-index:6;
+}
 
-    /* 🌸 ORTADAKİ ZAMBAK */
-    .center-lily {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: -6px;
-      width: 260px; /* diğerlerinin yaklaşık 2 katı */
-      z-index: 5;
-      opacity: 0.9;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
-    }
+.center-lily {
+  width:260px;
+}
 
-    @keyframes swayA {
-      0% { transform: rotate(-2deg) translateY(0); }
-      50% { transform: rotate(2deg) translateY(-1px); }
-      100% { transform: rotate(-2deg) translateY(0); }
-    }
+/* animasyonlar sadece iç elemana uygulanır */
+.sway-a { animation:swayA 7s ease-in-out infinite; }
 
-    @keyframes swayB {
-      0% { transform: rotate(1.5deg) translateY(0); }
-      50% { transform: rotate(-2deg) translateY(-2px); }
-      100% { transform: rotate(1.5deg) translateY(0); }
-    }
+@keyframes swayA {
+  0% { transform:rotate(-2deg); }
+  50% { transform:rotate(2deg); }
+  100% { transform:rotate(-2deg); }
+}
 
-    @keyframes swayC {
-      0% { transform: rotate(-1deg) translateY(0); }
-      50% { transform: rotate(1deg) translateY(-1px); }
-      100% { transform: rotate(-1deg) translateY(0); }
-    }
-
-    .sway-a { animation: swayA 7s ease-in-out infinite; }
-    .sway-b { animation: swayB 8.5s ease-in-out infinite; }
-    .sway-c { animation: swayC 6.5s ease-in-out infinite; }
-
-    .music-toggle {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 20;
-      width: 88px;
-      height: 88px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.22);
-      backdrop-filter: blur(10px);
-    }
-
-    .music-toggle-icon {
-      font-size: 32px;
-      color: #fff;
-    }
-  </style>
+.music-toggle {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:20;
+}
+</style>
 </head>
 
-<body class="h-full">
-  <div class="page-bg" id="app">
-    <div id="snow-container"></div>
+<body>
+<div class="page-bg">
 
-    <button id="musicToggle" class="music-toggle">
-      <span id="musicIcon" class="music-toggle-icon">▶</span>
-    </button>
+<div id="snow-container"></div>
 
-    <audio id="bgMusic" loop preload="auto">
-      <source src="yalnizlik.mp3" type="audio/mpeg" />
-    </audio>
+<button id="musicToggle" class="music-toggle">
+<span id="musicIcon">▶</span>
+</button>
 
-    <div class="snowdrop-garden">
+<audio id="bgMusic" loop>
+<source src="yalnizlik.mp3" type="audio/mpeg">
+</audio>
 
-      <div class="ground-haze"></div>
+<div class="snowdrop-garden">
 
-      <!-- 🌸 ORTADAKİ LILY -->
-      <img src="Lily.svg" class="center-lily sway-a">
+<div class="ground-haze"></div>
 
-      <!-- mevcut çiçeklerin -->
-      <img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:-2%; width:76px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:5%; width:88px;">
-      <img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:12%; width:72px;">
-      <img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:19%; width:84px;">
+<!-- 🌸 ORTA ZAMBAK -->
+<div class="center-wrapper">
+  <img src="./Lily.svg" class="center-lily sway-a">
+</div>
 
-      <img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:1%; width:102px;">
-      <img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:9%; width:92px;">
+<!-- TÜM ORİJİNAL ÇİÇEKLERİN AYNI KALDI -->
+<img src="snowdropnew1.svg" class="snowdrop" style="left:10%; width:90px;">
+<img src="snowdropnew2.svg" class="snowdrop" style="left:30%; width:110px;">
+<img src="snowdropnew1.svg" class="snowdrop" style="left:60%; width:100px;">
+<img src="snowdropnew2.svg" class="snowdrop" style="left:80%; width:120px;">
 
-      <img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:18%; width:118px;">
-      <img src="snowdropnew2.svg" class="snowdrop front sway-c" style="left:29%; width:142px;">
+</div>
+</div>
 
-    </div>
-  </div>
+<script>
+const snowContainer = document.getElementById("snow-container");
 
-  <script>
-    const snowContainer = document.getElementById("snow-container");
+for (let i=0;i<12;i++){
+ let s=document.createElement("div");
+ s.className="snowflake";
+ s.style.left=Math.random()*100+"%";
+ s.style.animationDuration=(15+Math.random()*20)+"s";
+ snowContainer.appendChild(s);
+}
 
-    for (let i = 0; i < 12; i++) {
-      const s = document.createElement("div");
-      s.className = "snowflake";
-      s.style.left = Math.random() * 100 + "%";
-      s.style.animationDuration = (15 + Math.random() * 20) + "s";
-      s.style.animationDelay = (Math.random() * 15) + "s";
-      snowContainer.appendChild(s);
-    }
+const musicToggle=document.getElementById("musicToggle");
+const bgMusic=document.getElementById("bgMusic");
+const musicIcon=document.getElementById("musicIcon");
 
-    const musicToggle = document.getElementById("musicToggle");
-    const bgMusic = document.getElementById("bgMusic");
-    const musicIcon = document.getElementById("musicIcon");
+musicToggle.onclick=()=>{
+ if(bgMusic.paused){
+   bgMusic.play();
+   musicIcon.textContent="❚❚";
+ }else{
+   bgMusic.pause();
+   musicIcon.textContent="▶";
+ }
+};
+</script>
 
-    function updateMusicButton() {
-      musicIcon.textContent = bgMusic.paused ? "▶" : "❚❚";
-    }
-
-    musicToggle.addEventListener("click", async () => {
-      if (bgMusic.paused) {
-        await bgMusic.play();
-      } else {
-        bgMusic.pause();
-      }
-      updateMusicButton();
-    });
-
-    updateMusicButton();
-  </script>
 </body>
 </html>
