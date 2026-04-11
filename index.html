@@ -7,96 +7,140 @@
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 
 <style>
-html, body { height:100%; margin:0; }
+html, body {
+  height: 100%;
+  margin: 0;
+}
 
 body {
-  box-sizing:border-box;
-  overflow:hidden;
-  background:#f7f5f0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #f7f5f0;
 }
 
 .page-bg {
-  background:#f7f5f0;
-  min-height:100%;
-  width:100%;
-  position:relative;
+  background: #f7f5f0;
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 @keyframes snowfall {
-  0% { transform:translateY(-10px); opacity:0; }
-  10% { opacity:0.4; }
-  90% { opacity:0.3; }
-  100% { transform:translateY(100vh); opacity:0; }
+  0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+  10% { opacity: 0.4; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(100vh) translateX(30px); opacity: 0; }
 }
 
 .snowflake {
-  position:fixed;
-  width:4px;
-  height:4px;
-  background:rgba(255,255,255,0.7);
-  border-radius:50%;
-  z-index:0;
-  animation:snowfall linear infinite;
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: snowfall linear infinite;
+  box-shadow: 0 0 3px rgba(200,210,220,0.4);
+  will-change: transform;
 }
 
 .snowdrop-garden {
-  position:fixed;
-  left:-5%;
-  width:110%;
-  bottom:0;
-  height:340px;
-  pointer-events:none;
-  z-index:2;
-  transform:scale(1.28);
-  transform-origin:bottom center;
+  position: fixed;
+  left: -5%;
+  width: 110%;
+  bottom: 0;
+  height: 340px;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+  transform: scale(1.28);
+  transform-origin: bottom center;
 }
 
 .ground-haze {
-  position:absolute;
-  bottom:0;
-  height:120px;
-  width:100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  background:
+    linear-gradient(to top, rgba(214, 223, 214, 0.45), rgba(214, 223, 214, 0.00)),
+    radial-gradient(ellipse at center bottom, rgba(170, 184, 170, 0.20), transparent 68%);
+  filter: blur(2px);
 }
 
 .snowdrop {
-  position:absolute;
-  bottom:-4px;
-  transform-origin:bottom center;
+  position: absolute;
+  bottom: -4px;
+  transform-origin: bottom center;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));
+  will-change: transform;
 }
 
-/* 🌸 ORTA ZAMBAK (AYRI WRAPPER!) */
-.center-wrapper {
-  position:absolute;
-  left:50%;
-  bottom:-6px;
-  transform:translateX(-50%);
-  z-index:6;
+.back {
+  opacity: 0.32;
+  filter: blur(0.3px) drop-shadow(0 2px 4px rgba(0,0,0,0.05));
 }
 
+.mid { opacity: 0.52; }
+
+.front {
+  opacity: 0.72;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.10));
+}
+
+/* 🌸 ORTA ZAMBAK */
 .center-lily {
-  width:260px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -6px;
+  width: 160px;
+  z-index: 4;
+  pointer-events: none;
 }
-
-/* animasyonlar sadece iç elemana uygulanır */
-.sway-a { animation:swayA 7s ease-in-out infinite; }
 
 @keyframes swayA {
-  0% { transform:rotate(-2deg); }
-  50% { transform:rotate(2deg); }
-  100% { transform:rotate(-2deg); }
+  0% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(-1px); }
+  100% { transform: rotate(-2deg) translateY(0); }
 }
 
+@keyframes swayB {
+  0% { transform: rotate(1.5deg) translateY(0); }
+  50% { transform: rotate(-2deg) translateY(-2px); }
+  100% { transform: rotate(1.5deg) translateY(0); }
+}
+
+@keyframes swayC {
+  0% { transform: rotate(-1deg) translateY(0); }
+  50% { transform: rotate(1deg) translateY(-1px); }
+  100% { transform: rotate(-1deg) translateY(0); }
+}
+
+.sway-a { animation: swayA 7s ease-in-out infinite; }
+.sway-b { animation: swayB 8.5s ease-in-out infinite; }
+.sway-c { animation: swayC 6.5s ease-in-out infinite; }
+
 .music-toggle {
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  z-index:20;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.22);
 }
 </style>
 </head>
 
-<body>
+<body class="h-full">
 <div class="page-bg">
 
 <div id="snow-container"></div>
@@ -105,24 +149,52 @@ body {
 <span id="musicIcon">▶</span>
 </button>
 
-<audio id="bgMusic" loop>
-<source src="yalnizlik.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+<source src="yalnizlik.mp3" type="audio/mpeg" />
 </audio>
 
 <div class="snowdrop-garden">
 
 <div class="ground-haze"></div>
 
-<!-- 🌸 ORTA ZAMBAK -->
-<div class="center-wrapper">
-  <img src="./Lily.svg" class="center-lily sway-a">
-</div>
+<!-- 🌸 EKLENEN ZAMBAK -->
+<img src="Lily.svg" decoding="async" class="center-lily sway-a">
 
-<!-- TÜM ORİJİNAL ÇİÇEKLERİN AYNI KALDI -->
-<img src="snowdropnew1.svg" class="snowdrop" style="left:10%; width:90px;">
-<img src="snowdropnew2.svg" class="snowdrop" style="left:30%; width:110px;">
-<img src="snowdropnew1.svg" class="snowdrop" style="left:60%; width:100px;">
-<img src="snowdropnew2.svg" class="snowdrop" style="left:80%; width:120px;">
+<!-- ORİJİNAL ÇİÇEKLER AYNEN -->
+<img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:-2%; width:76px;">
+<img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:5%; width:88px;">
+<img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:12%; width:72px;">
+<img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:19%; width:84px;">
+<img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:28%; width:78px;">
+<img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:36%; width:86px;">
+<img src="snowdropnew1.svg" class="snowdrop back sway-a" style="left:45%; width:74px;">
+<img src="snowdropnew2.svg" class="snowdrop back sway-b" style="left:54%; width:82px;">
+<img src="snowdropnew1.svg" class="snowdrop back sway-c" style="left:63%; width:76px;">
+<img src="snowdropnew2.svg" class="snowdrop back sway-a" style="left:72%; width:84px;">
+<img src="snowdropnew1.svg" class="snowdrop back sway-b" style="left:81%; width:78px;">
+<img src="snowdropnew2.svg" class="snowdrop back sway-c" style="left:90%; width:88px;">
+
+<img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:1%; width:102px;">
+<img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:9%; width:92px;">
+<img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:17%; width:110px;">
+<img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:25%; width:96px;">
+<img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:34%; width:108px;">
+<img src="snowdropnew1.svg" class="snowdrop mid sway-a" style="left:43%; width:95px;">
+<img src="snowdropnew2.svg" class="snowdrop mid sway-b" style="left:52%; width:112px;">
+<img src="snowdropnew1.svg" class="snowdrop mid sway-c" style="left:61%; width:94px;">
+<img src="snowdropnew2.svg" class="snowdrop mid sway-a" style="left:70%; width:106px;">
+<img src="snowdropnew1.svg" class="snowdrop mid sway-b" style="left:79%; width:96px;">
+<img src="snowdropnew2.svg" class="snowdrop mid sway-c" style="left:88%; width:108px;">
+
+<img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:-1%; width:122px;">
+<img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:8%; width:136px;">
+<img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:18%; width:118px;">
+<img src="snowdropnew2.svg" class="snowdrop front sway-c" style="left:29%; width:142px;">
+<img src="snowdropnew1.svg" class="snowdrop front sway-a" style="left:40%; width:124px;">
+<img src="snowdropnew2.svg" class="snowdrop front sway-b" style="left:51%; width:138px;">
+<img src="snowdropnew1.svg" class="snowdrop front sway-c" style="left:63%; width:120px;">
+<img src="snowdropnew2.svg" class="snowdrop front sway-a" style="left:74%; width:140px;">
+<img src="snowdropnew1.svg" class="snowdrop front sway-b" style="left:86%; width:126px;">
 
 </div>
 </div>
@@ -130,28 +202,37 @@ body {
 <script>
 const snowContainer = document.getElementById("snow-container");
 
-for (let i=0;i<12;i++){
- let s=document.createElement("div");
- s.className="snowflake";
- s.style.left=Math.random()*100+"%";
- s.style.animationDuration=(15+Math.random()*20)+"s";
- snowContainer.appendChild(s);
+/* performans için azaltıldı */
+for (let i = 0; i < 8; i++) {
+  const s = document.createElement("div");
+  s.className = "snowflake";
+  s.style.left = Math.random() * 100 + "%";
+  s.style.animationDuration = (15 + Math.random() * 20) + "s";
+  s.style.animationDelay = (Math.random() * 15) + "s";
+  s.style.width = (2 + Math.random() * 3) + "px";
+  s.style.height = s.style.width;
+  s.style.opacity = 0.15 + Math.random() * 0.2;
+  snowContainer.appendChild(s);
 }
 
-const musicToggle=document.getElementById("musicToggle");
-const bgMusic=document.getElementById("bgMusic");
-const musicIcon=document.getElementById("musicIcon");
+const musicToggle = document.getElementById("musicToggle");
+const bgMusic = document.getElementById("bgMusic");
+const musicIcon = document.getElementById("musicIcon");
 
-musicToggle.onclick=()=>{
- if(bgMusic.paused){
-   bgMusic.play();
-   musicIcon.textContent="❚❚";
- }else{
-   bgMusic.pause();
-   musicIcon.textContent="▶";
- }
+function updateMusicButton() {
+  musicIcon.textContent = bgMusic.paused ? "▶" : "❚❚";
+}
+
+musicToggle.onclick = async () => {
+  if (bgMusic.paused) {
+    await bgMusic.play();
+  } else {
+    bgMusic.pause();
+  }
+  updateMusicButton();
 };
-</script>
 
+updateMusicButton();
+</script>
 </body>
 </html>
