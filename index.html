@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Closed</title>
+<title>Lily</title>
 
 <style>
 html, body {
@@ -15,20 +15,53 @@ html, body {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
-.message {
-    color: #6b6b6b;
-    font-size: 18px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    user-select: none;
+.lily {
+    width: min(38vw, 320px);
+    height: auto;
+
+    transform-origin: 50% 90%;
+
+    animation: sway 5.5s ease-in-out infinite;
+}
+
+@keyframes sway {
+    0% {
+        transform: rotate(-2deg) translateY(0);
+    }
+
+    25% {
+        transform: rotate(1deg) translateY(-2px);
+    }
+
+    50% {
+        transform: rotate(2deg) translateY(0);
+    }
+
+    75% {
+        transform: rotate(-1deg) translateY(-1px);
+    }
+
+    100% {
+        transform: rotate(-2deg) translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lily {
+        animation: none;
+    }
 }
 </style>
 </head>
 
 <body>
-    <div class="message">Closed</div>
+    <img
+        class="lily"
+        src="Lily.svg"
+        alt=""
+        draggable="false"
+    >
 </body>
 </html>
